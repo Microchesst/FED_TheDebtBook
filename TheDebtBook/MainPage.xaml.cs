@@ -38,7 +38,7 @@ namespace TheDebtBook
                 // Refresh the UI
                 if (BindingContext is MainPageViewModel viewModel)
                 {
-                    await viewModel.LoadDebtors();
+                    viewModel.LoadDebtors();
                 }
             }
         }

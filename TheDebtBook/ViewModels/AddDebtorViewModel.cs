@@ -34,25 +34,23 @@ namespace TheDebtBook.ViewModels
                 TotalAmountOwed = AmountOwed
             };
 
-            // Save the new debtor to the database and await it
             await DataBaseHelper.AddDebtorAsync(newDebtor);
+            var addedDebtor = await DataBaseHelper.GetDebtorByNameAsync(DebtorName); // Assuming you have a method to get debtor by name
 
-            // Add the initial transaction for the debtor
             DebtTransaction initialTransaction = new DebtTransaction
             {
                 Description = "Initial amount",
                 Amount = AmountOwed,
                 Date = DateTime.Now,
                 Type = AmountOwed > 0 ? TransactionType.Credit : TransactionType.Debit,
-                DebtorId = newDebtor.Id
+                DebtorId = addedDebtor.Id
             };
 
-            // Save the new transaction to the database and await it
             await DataBaseHelper.AddDebtTransactionAsync(initialTransaction);
 
-            // Navigate back to the main page after adding
             Shell.Current.GoToAsync("//MainPage");
         }
+
 
 
     }

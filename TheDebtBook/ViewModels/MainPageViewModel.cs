@@ -19,22 +19,22 @@ namespace TheDebtBook.ViewModels
 
         public MainPageViewModel()
         {
-            _ = LoadDebtors();
+            LoadDebtors();
             NavigateToAddDebtorCommand = new RelayCommand(OnNavigateToAddDebtor);
             NavigateToDebtorDetailsCommand = new RelayCommand<int>(OnNavigateToDebtorDetails);
         }
 
-        public async Task LoadDebtors()
+        public async void LoadDebtors()
         {
-            try
+            var debtors = await DataBaseHelper.GetAllDebtorsAsync();
+
+            foreach (var debtor in debtors)
             {
-                DebtorsList = new ObservableCollection<Debtor>(await DataBaseHelper.GetAllDebtorsAsync());
+                var transactions = await DataBaseHelper.GetTransactionsForDebtorAsync(debtor.Id);
+                debtor.TotalAmountOwed = transactions.Sum(t => t.Amount);
             }
-            catch (Exception ex)
-            {
-                // Handle or log the exception
-                Debug.WriteLine(ex.Message);
-            }
+
+            DebtorsList = new ObservableCollection<Debtor>(debtors);
         }
 
         private void OnNavigateToAddDebtor()

@@ -39,6 +39,11 @@ namespace TheDebtBook.Data
             await Database.DeleteAllAsync<DebtTransaction>();
         }
         //Debtor CRUD
+        public static async Task<Debtor> GetDebtorByNameAsync(string debtorName)
+        {
+            return await Database.Table<Debtor>().Where(d => d.Name == debtorName).FirstOrDefaultAsync();
+        }
+
         public static Task<int> AddDebtorAsync(Debtor debtor)
         {
             return Database.InsertAsync(debtor);
