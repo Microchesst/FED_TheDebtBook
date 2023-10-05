@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:TheDebtBook"
+       x:Class="TheDebtBook.AppShell">
+
+    <!-- Main Page -->
+    <ShellContent Title="Home"
+                  ContentTemplate="{DataTemplate local:MainPage}"
+                  Route="MainPage" />
+
+    <!-- Add Debtor Page -->
+    <ShellContent Title="Add Debtor"
+                  ContentTemplate="{DataTemplate local:AddDebtorPage}"
+                  Route="AddDebtorPage" />
+
+    <!-- Debtor Details Page (parameterized navigation) -->
+    <ShellContent Title="Debtor Details"
+                  ContentTemplate="{DataTemplate local:DebtorDetailsPage}"
+                  Route="DebtorDetailsPage" />
+</Shell>
