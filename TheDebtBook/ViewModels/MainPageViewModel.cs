@@ -28,12 +28,6 @@ namespace TheDebtBook.ViewModels
         {
             var debtors = await DataBaseHelper.GetAllDebtorsAsync();
 
-            foreach (var debtor in debtors)
-            {
-                var transactions = await DataBaseHelper.GetTransactionsForDebtorAsync(debtor.Id);
-                debtor.TotalAmountOwed = transactions.Sum(t => t.Amount);
-            }
-
             DebtorsList = new ObservableCollection<Debtor>(debtors);
         }
 
