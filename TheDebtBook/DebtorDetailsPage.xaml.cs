@@ -13,10 +13,13 @@ namespace TheDebtBook
         protected override void OnAppearing()
         {
             base.OnAppearing();
+
             if (BindingContext is DebtorDetailsViewModel vm)
             {
+
                 vm.LoadTransactions();
             }
         }
+
     }
 }

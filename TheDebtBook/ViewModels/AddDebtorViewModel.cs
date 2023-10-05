@@ -37,7 +37,7 @@ namespace TheDebtBook.ViewModels
             await DataBaseHelper.AddDebtorAsync(newDebtor);
             var addedDebtor = await DataBaseHelper.GetDebtorByNameAsync(DebtorName); // Assuming you have a method to get debtor by name
 
-            DebtTransaction initialTransaction = new DebtTransaction
+            DebtTransaction initialTransaction = new()
             {
                 Description = "Initial amount",
                 Amount = AmountOwed,
@@ -48,7 +48,7 @@ namespace TheDebtBook.ViewModels
 
             await DataBaseHelper.AddDebtTransactionAsync(initialTransaction);
 
-            Shell.Current.GoToAsync("//MainPage");
+            await Shell.Current.GoToAsync("//MainPage");
         }
 
 

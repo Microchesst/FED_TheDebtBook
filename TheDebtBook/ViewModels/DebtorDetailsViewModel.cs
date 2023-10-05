@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -23,9 +21,6 @@ namespace TheDebtBook.ViewModels
 
         [ObservableProperty]
         private string _debtorName;
-
-        [ObservableProperty]
-        private DateTime _transactionDate;
         
         [ObservableProperty]
         private double _totalAmountSpent;
@@ -54,19 +49,9 @@ namespace TheDebtBook.ViewModels
             if (debtor != null)
             {
                 DebtorName = debtor.Name;
-                TotalAmountSpent = debtor.TotalAmountOwed; // Add this line
+                TotalAmountSpent = debtor.TotalAmountOwed;
             }
             LoadTransactions();
-        }
-
-
-        private async void LoadDebtorDetails()
-        {
-            var debtor = await DataBaseHelper.GetDebtorByIdAsync(_debtorId);
-            if (debtor != null)
-            {
-                DebtorName = debtor.Name;
-            }
         }
 
         public async void LoadTransactions()
@@ -82,7 +67,7 @@ namespace TheDebtBook.ViewModels
                 return;
             }
 
-            DebtTransaction newTransaction = new DebtTransaction
+            DebtTransaction newTransaction = new()
             {
                 Description = NewTransactionDescription,
                 Amount = NewTransactionAmount,
