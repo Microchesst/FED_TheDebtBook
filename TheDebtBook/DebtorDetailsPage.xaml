@@ -23,7 +23,7 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <Label Text="Total Amount Spent:" FontAttributes="Bold" Margin="0,20,0,0" />
+        <Label Text="Total Amount Owed:" FontAttributes="Bold" Margin="0,20,0,0" />
         <Label Text="{Binding TotalAmountSpent}" FontAttributes="Bold" />
 
         <Label Text="Add New Transaction:" Margin="0,20,0,0" />

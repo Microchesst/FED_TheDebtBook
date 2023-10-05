@@ -54,9 +54,11 @@ namespace TheDebtBook.ViewModels
             if (debtor != null)
             {
                 DebtorName = debtor.Name;
+                TotalAmountSpent = debtor.TotalAmountOwed;
             }
             LoadTransactions();
         }
+
 
         private async void LoadDebtorDetails()
         {
@@ -90,7 +92,16 @@ namespace TheDebtBook.ViewModels
             };
 
             // Save the new transaction to the database
+            // Save the new transaction to the database
             await DataBaseHelper.AddDebtTransactionAsync(newTransaction);
+
+            // Update the TotalAmountOwed for the debtor
+            var debtor = await DataBaseHelper.GetDebtorByIdAsync(_debtorId);
+            if (debtor != null)
+            {
+                debtor.TotalAmountOwed += newTransaction.Amount;
+                await DataBaseHelper.UpdateDebtorAsync(debtor);
+            }
 
             // Reload the transactions
             LoadTransactions();
